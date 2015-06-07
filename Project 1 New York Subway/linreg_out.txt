@@ -1,0 +1,7 @@
+0.547165383789,tempi
+0.547056580221,tempi,pressurei
+0.547818593764,tempi,pressurei,precipi
+0.547751937655,tempi,pressurei,precipi,fog
+0.548059612237,tempi,pressurei,precipi,fog,rain
+0.547851005888,tempi,pressurei,precipi,fog,rain,wspdi
+0.548063308944,tempi,pressurei,precipi,fog,rain,wspdi,weekday
