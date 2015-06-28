@@ -268,6 +268,32 @@ def plot_residuals(turnstile_weather, predictions):
     (turnstile_weather["ENTRIESn_hourly"] - predictions).hist()
     return plt
 
+def plot_indvidual_residuals(pred_array,true_array):
+
+
+    res=np.power(pred_array-true_array,2)
+
+    r_var=np.var(true_array)
+
+    plt.figure()
+    plt.semilogy(true_array,res/r_var,'.')
+    plt.xlabel("true values of ENTRIESn_hourly")
+    plt.ylabel("squared residuals/total variance of the samples")
+    plt.grid()
+    return plt
+
+def plot_residuals_hist(pred_array, true_array,power=1):
+
+
+    res=np.power(pred_array-true_array,power)
+    #r_var=np.sqrt(np.var(true_array))
+    plt.figure()
+    plt.hist(res,bins=100)
+    plt.xlabel("residuals")
+    plt.ylabel("frequency")
+    plt.grid()
+    return plt
+
 
 def print_theta(feature_names,coef):
     for i,fid in enumerate(feature_names):

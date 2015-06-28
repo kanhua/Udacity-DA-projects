@@ -1,28 +1,23 @@
 import pandas
 import numpy as np
-import copy
-from linreg import normalize_features,print_theta
+from linreg import normalize_features,print_theta,plot_indvidual_residuals,plot_residuals_hist
 from sklearn.linear_model import Lasso,LinearRegression,RidgeCV,Ridge,SGDRegressor
 import matplotlib.pyplot as plt
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.cross_validation import cross_val_score,KFold
 
 raw_dataframe=pandas.read_csv("./data/improved-dataset/turnstile_weather_v2.csv")
-
-dataframe=raw_dataframe.loc[raw_dataframe["ENTRIESn_hourly"]<100000,:]
-
+#dataframe=raw_dataframe.loc[raw_dataframe["ENTRIESn_hourly"]<100000,:]
+dataframe=raw_dataframe
 print(raw_dataframe.shape[0])
 print(raw_dataframe.columns)
-#dataframe=raw_dataframe
+
 
 selected_features=['rain','tempi','fog','pressurei','wspdi', 'meanpressurei', 'meantempi',\
                    'meanwspdi']
 
-#selected_features=['rain']
 
 features_to_dummy=['hour','conds']
 
-#features_to_dummy=[]
 
 # Select Features (try different features!)
 features = dataframe[[f for f in selected_features if f not in features_to_dummy]]
@@ -50,7 +45,6 @@ values_array=np.array(values)
 
 
 #la=RidgeCV(alphas=[0.01,0.1,1,10])
-
 #la=SGDRegressor(loss="squared_loss",alpha=0.1,penalty='l1')
 la=LinearRegression()
 la.fit(features_array,values_array)
@@ -65,20 +59,18 @@ print("coefficient of rain:%s"%str(la.coef_[0]))
 
 predict_array=la.predict(features_array)
 
-res=np.power(predict_array-values_array,2)
-
-#plt.semilogy(values_array,res,'.')
-r_var=np.var(values_array)
-plt.hist(res/r_var,bins=1000)
-
+plt=plot_indvidual_residuals(predict_array,values_array)
+plt.savefig("resplot.png")
+plt.show()
 plt.close()
 
-plt.semilogy(values_array,res/r_var,'.')
-plt.xlabel("true values of ENTRIESn_hourly")
-plt.ylabel("squared residuals/total variance of the samples")
-plt.savefig("resplot.png")
-
+plot=plot_residuals_hist(predict_array,values_array)
+plt.savefig("resplot_hist.png")
 plt.show()
+plt.close()
+
+
+# Run cross validation
 kf_total = KFold(dataframe.shape[0], n_folds=5)
 
 a=cross_val_score(la,features_array,values_array,cv=kf_total)

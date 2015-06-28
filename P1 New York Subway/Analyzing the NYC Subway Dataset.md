@@ -14,12 +14,12 @@ This document addresses part 2 of the project. Please use this document as a tem
 
 We use Mann-Whitney U Test to compare the ridership of NYC subway at rainy and non-rainy days.
 In this test, we choose the column ```ENTRIESn_hourly``` as the response and the column ```rain``` as the feature.
-We used a two-tailed test because our goal is to know whether the population of ```ENTRIESn_hourly``` in rainy and non-rainy days differ from each other. The null hypothesis is that the samples of ```ENTRIES_hourly``` at rainy and non-rainy days come from the same population[3]. The p-critical value is chosen to be 0.05.
+We used a two-tailed test because our goal is to know whether the population of ```ENTRIESn_hourly``` in rainy and non-rainy days differ from each other. The null hypothesis is that the samples of ```ENTRIESn_hourly``` at rainy and non-rainy days come from the same population. The p-critical value is chosen to be 0.05.
 
 **1.2 Why is this statistical test applicable to the dataset? In particular, consider the assumptions that the test is making about the distribution of ridership in the two samples.**
 
-Mann-Whitney U-Test is applicable to the dataset because the distribution of ```ENTRIES_hourly``` is non-normal, as shown in the histogram plotted in Section 3.1. Therefore, 
-Also, this dataset conforms the underlying assumptions of Mann-Whitney U-Test: [1]
+Mann-Whitney U-Test is applicable to the dataset because the distribution of ```ENTRIESn_hourly``` is non-normal, as shown in the histogram plotted in Section 3.1. Therefore, 
+Also, this dataset conforms the underlying assumptions of Mann-Whitney U-Test:
 - The feature to be analyzed is ordinal and only has two groups.
 - Each entries of the data is independent.
 - The response is continuous.
@@ -108,7 +108,6 @@ This R2 value means that the ratio of summed residual and variance of ```ENTRIES
 ![entries_hist](resplot.png)
 
 The figure shows that this model predicts ```ENTRIESn_hourly``` better when the values of ```ENTRIESn_hourly``` is small. As ```ENTRIESn_hourly``` increases, the residuals becomes very large. This result indicates the model is not able to predict extreme cases of ```ENTRIESn_hourly```.
-
 
 
 ## Section 3. Visualization
