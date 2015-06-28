@@ -103,7 +103,7 @@ R2 value of this model is 0.148483261489. The R2 values of five-fold cross vadia
 
 **2.6 What does this R2 value mean for the goodness of fit for your regression model? Do you think this linear model to predict ridership is appropriate for this dataset, given this R2 value?**
 
-This R2 value means that the ratio of summed residual and variance of ```ENTRIESn_hourly``` is 1-0.148=0.852, meaning that the error of prediction is 85% of the variance of the data. We can look into this linear model further by plotting the true values of ```ENTRIESn_hourly``` against their corresponding residuals of predicted values, as plotted in the following figure:
+This R2 value means that the ratio of summed residual and variance of ```ENTRIESn_hourly``` is 1-0.148=0.852. In other words, the error of prediction is 85% of the variance of the data. We can look into this linear model further by plotting the true values of ```ENTRIESn_hourly``` against their corresponding residuals of predicted values, as plotted in the following figure:
 
 ![resplot](resplot.png)
 
@@ -118,8 +118,8 @@ The histogram shows that most of the residuals are reasonably small. However, th
 
 ## Section 3. Visualization
 
-Please include two visualizations that show the relationships between two or more variables in the NYC subway data.
-Remember to add appropriate titles and axes labels to your plots. Also, please add a short description below each figure commenting on the key insights depicted in the figure.
+**Please include two visualizations that show the relationships between two or more variables in the NYC subway data.
+Remember to add appropriate titles and axes labels to your plots. Also, please add a short description below each figure commenting on the key insights depicted in the figure.**
 
 **3.1 One visualization should contain two histograms: one of ENTRIESn_hourly for rainy days and one of ENTRIESn_hourly" for non-rainy days.
 You can combine the two histograms in a single plot or you can use two separate plots.
