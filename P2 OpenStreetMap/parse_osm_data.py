@@ -195,4 +195,4 @@ def test():
 
 if __name__ == "__main__":
 
-    data=process_map("./osm data/kaohsiung_taiwan.osm",True)
+    data=process_map("./osm data/taipei_taiwan.osm",True)

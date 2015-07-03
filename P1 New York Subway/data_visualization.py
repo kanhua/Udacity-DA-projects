@@ -25,6 +25,8 @@ def entries_histogram(turnstile_weather):
     '''
 
     plt.figure()
+    turnstile_weather['ENTRIESn_hourly'][turnstile_weather["rain"]==0]
+    turnstile_weather['ENTRIESn_hourly'][(turnstile_weather.rain==1) & (turnstile_weather.rain==1)].hist()
     rain_data=turnstile_weather.loc[turnstile_weather["rain"]==1,:]
     no_rain_data=turnstile_weather.loc[turnstile_weather["rain"]==0,:]
 
