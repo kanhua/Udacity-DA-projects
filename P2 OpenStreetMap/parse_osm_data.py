@@ -124,7 +124,10 @@ def shape_element(element):
                     else:
                         node["address"].update({m.group(1):tag.attrib["v"]})
                 else:
-                    node[tag.attrib["k"]]=tag.attrib["v"]
+                    atrb=tag.attrib["k"]
+                    if atrb=="address":
+                        atrb=atrb+"_m"
+                    node[atrb]=tag.attrib["v"]
 
         for tag in element.iter("nd"):
             if "node_refs" not in node:
@@ -195,4 +198,4 @@ def test():
 
 if __name__ == "__main__":
 
-    data=process_map("./osm data/taipei_taiwan.osm",True)
+    data=process_map("./osm data/london_england.osm",True)
