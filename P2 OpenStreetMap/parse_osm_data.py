@@ -5,6 +5,8 @@ import pprint
 import re
 import codecs
 import json
+from process_network import parse_network_str,validate_uk_postcodes
+from datetime import datetime
 """
 Your task is to wrangle the data and transform the shape of the data
 into the model we mentioned earlier. The output should be a list of dictionaries
@@ -104,6 +106,11 @@ def shape_element(element):
             if k in CREATED:
                 if "created" not in node:
                     node["created"]={}
+                #if k=="timestamp":
+                #    dt_obj=datetime.strptime(element.attrib[k],"%Y-%m-%dT%H:%M:%SZ")
+                #    node["created"].update({"time_s":{}})
+                #    node["created"]["time_s"].update({"year":dt_obj.year,"month":dt_obj.month,"day":dt_obj.day})
+
                 node["created"].update({k:element.attrib[k]})
             else:
 
@@ -121,13 +128,23 @@ def shape_element(element):
                 if m:
                     if "address" not in node.keys():
                         node["address"]={m.group(1):tag.attrib["v"]}
+                        if m.group(1)=="postcode":
+                            #area_code=extract_area(tag.attrib["v"])
+                            area_code,unit_code=validate_uk_postcodes(tag.attrib["v"])
+                            node["address"].update({"postcode_area":area_code,
+                                                    "postcode_unit":unit_code})
+
                     else:
                         node["address"].update({m.group(1):tag.attrib["v"]})
                 else:
                     atrb=tag.attrib["k"]
-                    if atrb=="address":
-                        atrb=atrb+"_m"
-                    node[atrb]=tag.attrib["v"]
+                    atrb_v=tag.attrib["v"]
+                    if atrb=="address" or atrb=="type":
+                        atrb=atrb+"_tag"
+                    elif atrb=="network":
+                        atrb_v=parse_network_str(atrb_v)
+
+                    node[atrb]=atrb_v
 
         for tag in element.iter("nd"):
             if "node_refs" not in node:
@@ -145,6 +162,7 @@ def shape_element(element):
         return node
     else:
         return None
+
 
 
 def process_map(file_in, pretty = False):
@@ -170,7 +188,7 @@ def test():
     # NOTE: if you are running this code on your computer, with a larger dataset,
     # call the process_map procedure with pretty=False. The pretty=True option adds
     # additional spaces to the output, making it significantly larger.
-    data = process_map('example_5.osm', True)
+    data = process_map('./L6 problems/example_5.osm', True)
     #pprint.pprint(data)
 
     correct_first_elem = {
@@ -198,4 +216,6 @@ def test():
 
 if __name__ == "__main__":
 
+    test()
     data=process_map("./osm data/london_england.osm",True)
+
