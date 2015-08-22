@@ -18,8 +18,6 @@ OSMFILE = "example_4.osm"
 street_type_re = re.compile(r'\b\S+\.?$', re.IGNORECASE)
 
 
-
-
 expected = ["Street", "Avenue", "Boulevard", "Drive", "Court", "Place", "Square", "Lane", "Road",
             "Trail", "Parkway", "Commons"]
 
@@ -29,6 +27,7 @@ mapping = { "St": "Street",
             "Ave": "Avenue",
             "Rd.": "Road"
 }
+
 
 
 def audit_street_type(street_types, street_name):
@@ -59,6 +58,7 @@ def audit(osmfile):
 def update_name(name, mapping):
 
     # YOUR CODE HERE
+
     m = street_type_re.search(name)
     if m:
         st_type=m.group()
@@ -79,7 +79,7 @@ def test():
     for st_type, ways in st_types.iteritems():
         for name in ways:
             better_name = update_name(name, mapping)
-            print(name, "=>", better_name)
+            print name, "=>", better_name
             if name == "West Lexington St.":
                 assert better_name == "West Lexington Street"
             if name == "Baldwin Rd.":

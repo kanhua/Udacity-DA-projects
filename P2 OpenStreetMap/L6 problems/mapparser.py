@@ -27,6 +27,7 @@ def count_tags(filename):
 
     return tags
 
+
 def test():
 
     tags = count_tags('example.osm')
