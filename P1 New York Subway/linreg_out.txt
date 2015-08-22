@@ -1,7 +1,0 @@
-0.16810233995,tempi
-0.169535683555,tempi,wspdi
-0.170344168532,tempi,wspdi,pressurei
-0.170687354767,tempi,wspdi,pressurei,fog
-0.170694073207,tempi,wspdi,pressurei,fog,rain
-0.170701810416,tempi,wspdi,pressurei,fog,rain,precipi
-0.170695323174,tempi,wspdi,pressurei,fog,rain,precipi,weekday

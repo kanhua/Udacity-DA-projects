@@ -1,5 +1,9 @@
 __pycache__/
-P1 New York Subway/data/
-P2 OpenStreetMap/osm data/
+New York Subway/data/
+OpenStreetMap/osm data/
 Reviews/
-P1 New York Subway/.idea/
+.idea/
+.ipynb_checkpoints/
+.DS_Store/
+.RData
+.Rhistory
