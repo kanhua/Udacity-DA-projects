@@ -129,7 +129,6 @@ def shape_element(element):
                     if "address" not in node.keys():
                         node["address"]={m.group(1):tag.attrib["v"]}
                         if m.group(1)=="postcode":
-                            #area_code=extract_area(tag.attrib["v"])
                             area_code,unit_code=validate_uk_postcodes(tag.attrib["v"])
                             node["address"].update({"postcode_area":area_code,
                                                     "postcode_unit":unit_code})
@@ -139,6 +138,8 @@ def shape_element(element):
                 else:
                     atrb=tag.attrib["k"]
                     atrb_v=tag.attrib["v"]
+
+                    # Deal with the conflicts of tag names
                     if atrb=="address" or atrb=="type":
                         atrb=atrb+"_tag"
                     elif atrb=="network":

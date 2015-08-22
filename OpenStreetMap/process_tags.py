@@ -3,6 +3,12 @@ __author__ = 'kanhua'
 import re
 
 def parse_network_str(input_str):
+    '''
+    Convert the values of the key "network" into lists.
+    For example, it converts "London Underground;London Overground" to a list ["London Underground","London Overground"]
+    :param input_str: string of networks separated by ";"
+    :return: a list of networks
+    '''
 
     assert isinstance(input_str,str)
     input_str_lst=input_str.split(";")
@@ -12,30 +18,21 @@ def parse_network_str(input_str):
     return new_str_list
 
 
-def test_parse_network_str():
-
-    assert parse_network_str("London Underground")==["London Underground"]
-    assert parse_network_str("London Underground; British Rail")==["London Underground","British Rail"]
-
-
-def extract_area(postcode_str):
-
-    reg_str="(?P<area>^(E|EC|N|NW|SE|SW|W|WC|WD|HA|UB|TW|KT|SM|CR|BR|DA|RM|IG|CM|EN)[0-9][0-9]*)\s*[0-9][A-Z][A-Z]"
-    prog=re.compile(reg_str)
-    match_group=prog.match(postcode_str)
-    if match_group is None:
-        return "NA"
-    else:
-        return match_group.group("area")
-
-
 def validate_uk_postcodes(postcode_str):
+    '''
+    Validate a Uk postcode.
+    :param postcode_str: A uk postcode, e.g. "kt12np, KT1 2NP, etc.
+    :return: a tuple (area_code, unit_code) if the input string is a valid postcode.
+    Returns ("NA","NA") if the input string is not a valid UK postcode.
+    '''
 
     assert isinstance(postcode_str,str)
-    # Verify the second part
 
+    # Clean the string and convert it to upper case
     postcode_str=postcode_str.strip()
     postcode_str=postcode_str.upper()
+
+    # Extract the unit codes and area codes
     unit_code=postcode_str[-3:]
     area_code=postcode_str[:-3].rstrip()
 
@@ -47,6 +44,12 @@ def validate_uk_postcodes(postcode_str):
 
 
 def validate_area_code(area_code_str):
+    """
+    Valide the area code (first part) of a UK postcode
+    :param area_code_str: a string of area code of UK postcode, e.g. W1, KT3
+    :return: True if the input string is a valid UK area code
+    """
+
 
     assert isinstance(area_code_str,str)
 
@@ -95,6 +98,10 @@ def validate_unit_code(unit_code_str):
 
 
 def test_validate_area_code():
+    '''
+    Test the valid_area_code()
+    :return:
+    '''
 
     assert validate_area_code("WC1A")==True
 
@@ -117,18 +124,17 @@ def test_validate_UK_postcode():
     assert validate_uk_postcodes("kt32")==("NA","NA")
     assert validate_uk_postcodes("k")==("NA","NA")
 
-def test_extract_area():
-    assert extract_area("SW19 2HQ")=="SW19"
-    assert extract_area("KT3 2GZ")=="KT3"
+def test_parse_network_str():
+
+    assert parse_network_str("London Underground")==["London Underground"]
+    assert parse_network_str("London Underground; British Rail")==["London Underground","British Rail"]
+
+
 
 if __name__=="__main__":
 
 
     test_parse_network_str()
-
-    test_extract_area()
-
-    #print(validate_uk_postcodes("WC1B 5HR"))
 
     test_validate_area_code()
 
