@@ -23,7 +23,7 @@ edxdata<-read.csv(paste(data.path,rawfile,sep=""))
 #load(paste(data.path,"HMXPC13_DI_v2_5-14-14.RData",sep = ""))
 
 # Load course details data:
-course.data.path = "/Users/kanhua/Dropbox/Documents in Dropbox/Open Courseware/Udacity courseware/Data Analyst Nanodegree/Udacity DA projects/Explore Data/data/course_details.csv"
+course.data.path = "/Users/kanhua/Dropbox/Documents in Dropbox/Open Courseware/Udacity courseware/Data Analyst Nanodegree/Udacity DA projects/Explore and Summarize Data/data/course_details.csv"
 course.data <- read.csv(course.data.path)
 
 # Join the edxdata and course.data
