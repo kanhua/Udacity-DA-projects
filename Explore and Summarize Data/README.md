@@ -6,18 +6,18 @@ The dataset is provided by edX, which contains some statistical data of 16 MITx 
 
 ## Submission files
 
-##### Main Rmd file: [```explore_edx_data.Rmd```](explore_edx_data.Rmd)
+##### Main Rmd file: ```explore_edx_data.Rmd```
 The main document of the project. This Rmd file contains the analysis of the dataset and all the codes.
 
-##### Knitted html file: [explore_edx_data.html](explore_edx_data.html) 
+##### Knitted html file: ```explore_edx_data.html```
 Knitted html file from the main Rmd document.
 
 ##### The dataset
 - Main edX dataset: ```HMXPC13_DI_v2_5-14-14.csv``` This dataset can be downloaded from this [link](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/26147).
 
-- Support dataset: [```course_details.csv```](./course_details.csv) A csv file that maps the course names and course codes.
+- Support dataset: ```./data/course_details.csv``` A csv file that maps the course names and course codes.
 
-- A short summary of this data:[```edx data summary.md```](./edx data summary.md)
+- A short summary of this data: ```edx data summary.md```
 
 ##### References
 - [Official documentation of edx data AY2013](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/26147)
