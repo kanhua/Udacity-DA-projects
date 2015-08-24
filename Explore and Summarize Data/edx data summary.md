@@ -43,12 +43,12 @@ This file includes the following columns:
 - ```course_code```: code of each unique course. For example, ```MITx/3.091x/2012_Fall``` and ```3.091x/
 MITx/3.091x/2013_Spring``` are different ```course_id``` but they share the same course code ```3.091x```.
 - ```short_title```: The abbreviated course name of each unique course.
-- ```short_title_year```: The abbreviated course name of each unique course with years as the suffix to distinguish the same courses offered in different semesters.
+- ```abbrev_course_title```: The abbreviated course name of each unique course with years as the suffix to distinguish the same courses offered in different semesters.
 - ```long_title```: Full title of the course.
 
 The content of this file is presented in the following table:
 
-|course_id|institution|course_code|short_title_year|long_title|
+|course_id|institution|course_code|abbrev_course_title|long_title|
 |---------|-----------|-----------|----------------|----------|
 |HarvardX/CB22x/2013_Spring|Harvard|CB22x|HeroesX|The Ancient Greek Hero|
 |HarvardX/CS50x/2012|Harvard|CS50x|CS50X|Introduction to Computer Science I|

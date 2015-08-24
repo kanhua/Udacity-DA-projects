@@ -16,15 +16,14 @@ library(ggplot2)
 
 ```{r echo=FALSE, Load_the_Data}
 # Load the Data
-data.path = "/Users/kanhua/Documents/Big Data/edX open data 2013/"
+data.path = "./data/"
 rawfile = "HMXPC13_DI_v2_5-14-14.csv"
 edxdata<-read.csv(paste(data.path,rawfile,sep=""))
 #save(edxdata,file=paste(data.path,"HMXPC13_DI_v2_5-14-14.RData",sep=""))
 #load(paste(data.path,"HMXPC13_DI_v2_5-14-14.RData",sep = ""))
 
 # Load course details data:
-course.data.path = "/Users/kanhua/Dropbox/Documents in Dropbox/Open Courseware/Udacity courseware/Data Analyst Nanodegree/Udacity DA projects/Explore and Summarize Data/data/course_details.csv"
-course.data <- read.csv(course.data.path)
+course.data <- read.csv(paste(data.path,"course_details.csv",sep=""))
 
 # Join the edxdata and course.data
 edxdata <- inner_join(x = edxdata,y = course.data,by = "course_id")
@@ -173,26 +172,26 @@ Firstly we investigate some basic user statistics of each course:
 
 ##### Number of registrants of each course:
 ```{r,echo=FALSE}
-ggplot(aes(y = registered_num,x = short_title_year),data = courses) +
+ggplot(aes(y = registered_num,x = abbrev_course_title),data = courses) +
   geom_bar(stat = "identity") + coord_flip()
 ```
 
 ##### Number of registrants who "explored" the course:
 ```{r,echo=FALSE}
-ggplot(aes(y = explored_num,x = short_title_year),data = courses) +
+ggplot(aes(y = explored_num,x = abbrev_course_title),data = courses) +
   geom_bar(stat = "identity") + coord_flip()
 ```
 
 ##### Number of registrants who earned certificates:
 
 ```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(y = passed_num,x = short_title_year),data = courses) +
+ggplot(aes(y = passed_num,x = abbrev_course_title),data = courses) +
   geom_bar(stat = "identity")+coord_flip()
 ```
 
 ##### ```pass.rate``` of each course:
 ```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(x = short_title_year,y = pass.rate),
+ggplot(aes(x = abbrev_course_title,y = pass.rate),
        data = courses) +
        geom_bar(stat = "identity") +
        coord_flip()
@@ -267,7 +266,7 @@ Within the group of ```certified==1```, the distribution of ```nevents``` become
 
 ##### Gender distribution of all registrants, by course
 ```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(short_title_year,fill = gender),data = edxdata) +
+ggplot(aes(abbrev_course_title,fill = gender),data = edxdata) +
   geom_bar() + coord_flip()
 ```
   
@@ -276,7 +275,7 @@ The figure shows that most of the courses are dominated by male registrants.
 
 ##### Gender distribution of certificated registrants, by course
 ```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(short_title_year,fill = gender),data = filter(edxdata,certified == 1)) +
+ggplot(aes(abbrev_course_title,fill = gender),data = filter(edxdata,certified == 1)) +
   geom_bar() + coord_flip()
 ```
 
@@ -286,7 +285,7 @@ The certificated registrants of most courses are also dominated by men, except *
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(LoE_DI,fill = certified),data = edxdata) +
   geom_histogram() +
-  facet_wrap( ~ short_title_year) +
+  facet_wrap( ~ abbrev_course_title) +
   scale_y_log10() +
   coord_flip()
 ```
@@ -300,7 +299,7 @@ The above figure shows that the population of registrants with *Bachelor's* and 
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(nevents),
        data = filter(edxdata,!is.na(nevents))) +
-       geom_freqpoly(aes(y = ..density..,color = short_title_year)) +
+       geom_freqpoly(aes(y = ..density..,color = abbrev_course_title)) +
        xlim(0,1000) +
        scale_y_log10()
 ```
@@ -311,7 +310,7 @@ The distribution of most of the courses are very similar. All the curves drop ve
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(nevents),
        data = filter(edxdata,certified == 1)) +
-  geom_freqpoly(aes(y = ..density..,color = short_title_year)) +
+  geom_freqpoly(aes(y = ..density..,color = abbrev_course_title)) +
   xlim(0,30000)
 ```
   
@@ -319,7 +318,7 @@ The distribution of ```nevents``` becomes more Gaussian if we only consider the 
 
 ##### Boxplot of ```nevents``` of registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(x = short_title_year,y = nevents),
+ggplot(aes(x = abbrev_course_title,y = nevents),
        data = filter(edxdata,certified == 1)) +
        geom_jitter(alpha = 0.2) +
        ylim(0,30000) +
@@ -333,7 +332,7 @@ In the next three graphs, we plot similar boxplots of ```ndays_act```, ```access
 
 ##### Boxplot of ```ndays_act``` of registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(x = short_title_year,y = ndays_act),
+ggplot(aes(x = abbrev_course_title,y = ndays_act),
        data = filter(edxdata,certified == 1)) +
        geom_jitter(alpha = 0.2) +
        geom_boxplot() +
@@ -342,7 +341,7 @@ ggplot(aes(x = short_title_year,y = ndays_act),
 
 ##### Boxplot of ```access.period``` of registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(x = short_title_year,y = access.period),
+ggplot(aes(x = abbrev_course_title,y = access.period),
        data = filter(edxdata,certified == 1)) +
        geom_jitter(alpha = 0.2) +
        geom_boxplot() +
@@ -352,7 +351,7 @@ ggplot(aes(x = short_title_year,y = access.period),
 ##### Boxplot of ```access.rate``` of registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(
-  aes(x = short_title_year,y = access.rate),
+  aes(x = abbrev_course_title,y = access.rate),
   data = filter(edxdata,certified == 1 &
   access.rate > 0 & access.rate < 1)
   ) +
@@ -384,7 +383,7 @@ In the last part of this section, we explore some other features.
 ##### ```total_nforum_posts``` against ```pass.rate``` of each course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(x = total_nforum_posts,y = pass.rate,
-           color = short_title_year),data = courses) +
+           color = abbrev_course_title),data = courses) +
            geom_point()
 ```
 
@@ -427,7 +426,7 @@ ggplot(
   aes(grade,fill=certified),
   data = filter(edxdata,explored==1)
   ) + geom_histogram(aes(y=..density..))+ ylim(0,15)+
-  facet_wrap(~short_title_year)
+  facet_wrap(~abbrev_course_title)
 ```
 
 The distribution of ```grade`` is different from course to course, but almost all courses have a peak near zero, as expected. Note that ```grade``` of the course ```CS50X``` is not available.
@@ -436,7 +435,7 @@ The distribution of ```grade`` is different from course to course, but almost al
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(x = nevents,y = grade,color=certified),
        data = filter(edxdata,explored == 1)) +
-  geom_point(size=0.5) + facet_wrap(~short_title_year) +xlim(0,20000)
+  geom_point(size=0.5) + facet_wrap(~abbrev_course_title) +xlim(0,20000)
 ```
 
 
@@ -444,7 +443,7 @@ ggplot(aes(x = nevents,y = grade,color=certified),
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(x = access.rate,y = grade,color=certified),
        data = filter(edxdata,explored == 1)) +
-  geom_point(size=0.5) + xlim(0,1)+ facet_wrap(~short_title_year)
+  geom_point(size=0.5) + xlim(0,1)+ facet_wrap(~abbrev_course_title)
 ```
 
 The above figures show that the correlation between ```grade``` and ```nevents``` or ```access.rate``` are not very strong.
@@ -473,7 +472,7 @@ The distribution of ```grade``` behaves differently from course to course. Two d
 
 ### Plot One
 ```{r echo=FALSE, Plot_One}
-ggplot(aes(short_title_year,fill = LoE_DI),data = filter(edxdata,((LoE_DI!="") & (!is.nan(LoE_DI))))) +
+ggplot(aes(abbrev_course_title,fill = LoE_DI),data = filter(edxdata,((LoE_DI!="") & (!is.nan(LoE_DI))))) +
   geom_histogram(position = "fill") + coord_flip()+facet_wrap(~certified)
 ```
 
@@ -482,7 +481,7 @@ This figure is the density plot of education level (```LOE_DI```) of the registr
 
 ### Plot Two
 ```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(x=short_title_year,y=nevents),data=filter(edxdata,certified==1))+geom_jitter(aes(color=short_title),alpha=0.2,na.rm=TRUE)+ylim(0,30000)+geom_boxplot()+coord_flip()
+ggplot(aes(x=abbrev_course_title,y=nevents),data=filter(edxdata,certified==1))+geom_jitter(aes(color=short_title),alpha=0.2,na.rm=TRUE)+ylim(0,30000)+geom_boxplot()+coord_flip()
 ```
 
 ### Description Two
@@ -494,7 +493,7 @@ This figure shows a boxplot and a scatter plot of ```nevent``` of each certified
 ```{r,echo=FALSE,warning=FALSE, Plot_Three}
 ggplot(aes(x = nevents/10000,y = grade,color=certified),
        data = filter(edxdata,explored == 1)) +
-  geom_point(size=0.5) + facet_wrap(~short_title_year) +xlim(0,2)
+  geom_point(size=0.5) + facet_wrap(~abbrev_course_title) +xlim(0,2)
 ```
 
 ### Description Three

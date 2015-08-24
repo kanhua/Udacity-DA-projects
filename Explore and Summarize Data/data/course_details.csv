@@ -1,4 +1,4 @@
-course_id,institution,course_code,short_title,short_title_year,long_title
+course_id,institution,course_code,short_title,abbrev_course_title,long_title
 HarvardX/CB22x/2013_Spring,Harvard,CB22x,HeroesX,HeroesX,The Ancient Greek Hero
 HarvardX/CS50x/2012,Harvard,CS50x,CS50X,CS50X,Introduction to Computer Science I
 HarvardX/ER22x/2013_Spring,Harvard,ER22x,JusticeX,JusticeX,Justice
