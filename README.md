@@ -4,4 +4,6 @@
 
 ## Project 3: [Data Wrangle OpenStreetMaps Data](./OpenStreetMap/Data Wrangle OpenStreetMaps Data.ipynb)
 
+## Project 4: [Explore and Summarize Data](./Explore and Summarize Data/README.md)
+
 
