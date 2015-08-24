@@ -6,10 +6,10 @@ The dataset is provided by edX, which contains some statistical data of 16 MITx 
 
 ## Submission files
 
-##### Main Rmd file: [```explore_edx_data.Rmd```](./explore_edx_data.Rmd)
+##### Main Rmd file: [```explore_edx_data.Rmd```](explore_edx_data.Rmd)
 The main document of the project. This Rmd file contains the analysis of the dataset and all the codes.
 
-##### Knitted html file: [explore_edx_data.html](./explore_edx_data.html) 
+##### Knitted html file: [explore_edx_data.html](explore_edx_data.html) 
 Knitted html file from the main Rmd document.
 
 ##### The dataset
