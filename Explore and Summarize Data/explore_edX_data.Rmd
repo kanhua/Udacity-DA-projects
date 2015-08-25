@@ -14,13 +14,11 @@ require(dplyr)
 library(ggplot2)
 ```
 
-```{r echo=FALSE, Load_the_Data}
+```{r echo=FALSE, Load_the_Data,cache=TRUE}
 # Load the Data
 data.path = "./data/"
 rawfile = "HMXPC13_DI_v2_5-14-14.csv"
 edxdata<-read.csv(paste(data.path,rawfile,sep=""))
-#save(edxdata,file=paste(data.path,"HMXPC13_DI_v2_5-14-14.RData",sep=""))
-#load(paste(data.path,"HMXPC13_DI_v2_5-14-14.RData",sep = ""))
 
 # Load course details data:
 course.data <- read.csv(paste(data.path,"course_details.csv",sep=""))
@@ -55,7 +53,7 @@ edxdata$viewed <- as.logical(edxdata$viewed)
 
 
 
-```{r,echo=FALSE,group_data_by_user}
+```{r,echo=FALSE,group_by_user,cache=TRUE}
 #Summarize the course statistics of each unique users
 users <- edxdata %>%
   group_by(userid_DI,LoE_DI,age,gender) %>%
@@ -71,7 +69,7 @@ users$user.certificates = as.integer(users$user.certificates)
 ```
 
 
-```{r, echo=FALSE}
+```{r, group_by_courses,echo=FALSE,cache=TRUE}
 # Group the statistics of each unique course by course id
 courses <- edxdata %>%
   group_by(course_id) %>%
@@ -92,7 +90,7 @@ courses$hangon.rate <- courses$passed_num / courses$explored_num
 ```
 
 
-```{r,echo=FALSE}
+```{r,group_by_users,echo=FALSE,cache=TRUE}
 # Summarize the statistics of each unique course by each course. Essentially we merged the courses with the same course name
 course.stat <- edxdata %>%
   group_by(course_code) %>%
@@ -170,26 +168,26 @@ In the other hand, we preprocessed a number of features of the raw dataset:
 
 Firstly we investigate some basic user statistics of each course:
 
-##### Number of registrants of each course:
+#### Number of registrants of each course:
 ```{r,echo=FALSE}
 ggplot(aes(y = registered_num,x = abbrev_course_title),data = courses) +
   geom_bar(stat = "identity") + coord_flip()
 ```
 
-##### Number of registrants who "explored" the course:
+#### Number of registrants who "explored" the course:
 ```{r,echo=FALSE}
 ggplot(aes(y = explored_num,x = abbrev_course_title),data = courses) +
   geom_bar(stat = "identity") + coord_flip()
 ```
 
-##### Number of registrants who earned certificates:
+#### Number of registrants who earned certificates:
 
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(y = passed_num,x = abbrev_course_title),data = courses) +
   geom_bar(stat = "identity")+coord_flip()
 ```
 
-##### ```pass.rate``` of each course:
+#### ```pass.rate``` of each course:
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(x = abbrev_course_title,y = pass.rate),
        data = courses) +
@@ -201,7 +199,7 @@ From the above analysis, we can see that CS50X (Introduction to Computer Science
 
 We then investigate the statistics of the users:
 
-##### Number of certificates earned by the registrants:
+#### Number of certificates earned by the registrants:
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(user.certificates),data = users) +
   geom_bar() + scale_y_log10() +
@@ -211,8 +209,8 @@ ggplot(aes(user.certificates),data = users) +
 Please note that the y-axis of the above graph is in log scale.
 
 
-##### Histogram of ```age``` among all registrants:
-```{r,echo=FALSE,warning=FALSE}
+#### Histogram of ```age``` among all registrants:
+```{r,echo=FALSE,warning=FALSE,cache=TRUE}
 ggplot(aes(age),
        data = subset(users,users$age > 0)) +
        geom_bar(binwidth = 5)
@@ -220,8 +218,8 @@ ggplot(aes(age),
   
 Although the distribution of age is very wide, most registrants are between 20 to 35 years old.
 
-##### Histogram of ```LOE_DI``` of all registrants, with NA and blank ("") filtered:
-```{r,echo=FALSE,warning=FALSE}
+#### Histogram of ```LOE_DI``` of all registrants, with NA and blank ("") filtered:
+```{r,LoE_DI_hist,echo=FALSE,warning=FALSE,cache=TRUE}
 ggplot(aes(LoE_DI),
        data = filter(users,((LoE_DI != "") & (!is.nan(LoE_DI))))) +
        geom_bar()
@@ -230,8 +228,8 @@ ggplot(aes(LoE_DI),
 ```LoE_DI``` are dominated by *Less than Secondary*, *Master's* and *Doctorate*.
 
 
-##### Histogram of ```gender``` of all registrants, with NA and blank ("") filtered:
-```{r,echo=FALSE,warning=FALSE}
+#### Histogram of ```gender``` of all registrants, with NA and blank ("") filtered:
+```{r,gender_hist,echo=FALSE,warning=FALSE,cache=TRUE}
 ggplot(aes(gender),
        data = filter(users,((gender != "") & (!is.nan(gender))))) +
   geom_bar()
@@ -242,7 +240,7 @@ We can see that these courses are dominated by male registrants.
 
 Next, we investigates the activities of the registrants using the feature ```nevents```.
 
-##### Histogram of ```nevents``` of all registrants:
+#### Histogram of ```nevents``` of all registrants:
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(nevents),
        data = filter(edxdata, nevents <10000)) +
@@ -251,7 +249,7 @@ ggplot(aes(nevents),
 
 In this graph, we set the limit of x-axis to 10000 for clarity, since the data entries with ```nevents```>10000 are very rare. We can see that most of the registrants has ```nevents``` less than 1000.
 
-##### Histogram of ```nevents``` of registrants that passed a course (```certified==1```)
+#### Histogram of ```nevents``` of registrants that passed a course (```certified==1```)
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(nevents),
        data = filter(edxdata, certified == 1 & nevents >0)) +
@@ -264,7 +262,7 @@ Within the group of ```certified==1```, the distribution of ```nevents``` become
 
 ### Investigating the background of the registrants
 
-##### Gender distribution of all registrants, by course
+#### Gender distribution of all registrants, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(abbrev_course_title,fill = gender),data = edxdata) +
   geom_bar() + coord_flip()
@@ -273,7 +271,7 @@ ggplot(aes(abbrev_course_title,fill = gender),data = edxdata) +
 The figure shows that most of the courses are dominated by male registrants.
 
 
-##### Gender distribution of certificated registrants, by course
+#### Gender distribution of certificated registrants, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(abbrev_course_title,fill = gender),data = filter(edxdata,certified == 1)) +
   geom_bar() + coord_flip()
@@ -281,8 +279,8 @@ ggplot(aes(abbrev_course_title,fill = gender),data = filter(edxdata,certified ==
 
 The certificated registrants of most courses are also dominated by men, except *Poverty* and *HealthStat*.
 
-##### The distribution ```LoE_DI```, by course:
-```{r,echo=FALSE,warning=FALSE}
+#### The distribution ```LoE_DI```, by course:
+```{r,LoE_DI_distri,echo = FALSE,warning = FALSE,cache = TRUE,fig.width = 9.5,fig.height =7}
 ggplot(aes(LoE_DI,fill = certified),data = edxdata) +
   geom_histogram() +
   facet_wrap( ~ abbrev_course_title) +
@@ -295,7 +293,7 @@ The above figure shows that the population of registrants with *Bachelor's* and 
 
 ### Investigating the activities of registrants
 
-##### Normalized distribution of ```nevents``` of all registrants, by course
+#### Normalized distribution of ```nevents``` of all registrants, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(nevents),
        data = filter(edxdata,!is.na(nevents))) +
@@ -306,7 +304,7 @@ ggplot(aes(nevents),
   
 The distribution of most of the courses are very similar. All the curves drop very sharply below 100 ```nevents```. After that, the decrease becomes more moderate. 
 
-##### Distrubution of ```nevents``` of all registrants with certificates, by course
+#### Distrubution of ```nevents``` of all registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(nevents),
        data = filter(edxdata,certified == 1)) +
@@ -316,7 +314,7 @@ ggplot(aes(nevents),
   
 The distribution of ```nevents``` becomes more Gaussian if we only consider the population of those with certificates. However, the peaks of these distributions vary from course to course. 
 
-##### Boxplot of ```nevents``` of registrants with certificates, by course
+#### Boxplot of ```nevents``` of registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(x = abbrev_course_title,y = nevents),
        data = filter(edxdata,certified == 1)) +
@@ -330,7 +328,7 @@ This plot is a different representation of the previous plot. This boxplot shows
 
 In the next three graphs, we plot similar boxplots of ```ndays_act```, ```access.period``` and ```access.rate``` instead of ```nevents```. 
 
-##### Boxplot of ```ndays_act``` of registrants with certificates, by course
+#### Boxplot of ```ndays_act``` of registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(x = abbrev_course_title,y = ndays_act),
        data = filter(edxdata,certified == 1)) +
@@ -339,7 +337,7 @@ ggplot(aes(x = abbrev_course_title,y = ndays_act),
        coord_flip()
 ```
 
-##### Boxplot of ```access.period``` of registrants with certificates, by course
+#### Boxplot of ```access.period``` of registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(x = abbrev_course_title,y = access.period),
        data = filter(edxdata,certified == 1)) +
@@ -348,7 +346,7 @@ ggplot(aes(x = abbrev_course_title,y = access.period),
        coord_flip()
 ```
 
-##### Boxplot of ```access.rate``` of registrants with certificates, by course
+#### Boxplot of ```access.rate``` of registrants with certificates, by course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(
   aes(x = abbrev_course_title,y = access.rate),
@@ -365,7 +363,7 @@ We can see that ```ndays_act```, ```access.period``` and ```access.rate``` all v
 
 We then pick two user activities features ```nevents``` and ```ndays_act```, and explore their relation:
 
-##### ```ndays_act``` against ```nevents``` among the "explored" registrants (```explored==1```):
+#### ```ndays_act``` against ```nevents``` among the "explored" registrants (```explored==1```):
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(
   aes(x = ndays_act,y = nevents,color = certified),
@@ -380,7 +378,7 @@ From this plot, we can see that ```n_days_act``` and ```nevents``` have strong c
 
 In the last part of this section, we explore some other features.
 
-##### ```total_nforum_posts``` against ```pass.rate``` of each course
+#### ```total_nforum_posts``` against ```pass.rate``` of each course
 ```{r,echo=FALSE,warning=FALSE}
 ggplot(aes(x = total_nforum_posts,y = pass.rate,
            color = abbrev_course_title),data = courses) +
@@ -420,8 +418,8 @@ Within these 16 courses, registrants who passed these courses are dominated by m
 
 In this section, we will explore the activities of users versus ```grade```.
 
-##### Distribution of ```grade``` of each course
-```{r,echo=FALSE,warning=FALSE}
+#### Distribution of ```grade``` of each course
+```{r,echo=FALSE,warning=FALSE,cache=TRUE,fig.width=9}
 ggplot(
   aes(grade,fill=certified),
   data = filter(edxdata,explored==1)
@@ -429,18 +427,18 @@ ggplot(
   facet_wrap(~abbrev_course_title)
 ```
 
-The distribution of ```grade`` is different from course to course, but almost all courses have a peak near zero, as expected. Note that ```grade``` of the course ```CS50X``` is not available.
+The distribution of ```grade``` is different from course to course, but almost all courses have a peak near zero, as expected. Note that ```grade``` of the course ```CS50X``` is not available.
 
-##### ```nevents``` against ```grade```, by course
-```{r,echo=FALSE,warning=FALSE}
+#### ```nevents``` against ```grade```, by course
+```{r,echo=FALSE,warning=FALSE,cache=TRUE,fig.width=9.5}
 ggplot(aes(x = nevents,y = grade,color=certified),
        data = filter(edxdata,explored == 1)) +
   geom_point(size=0.5) + facet_wrap(~abbrev_course_title) +xlim(0,20000)
 ```
 
 
-##### ```access.rate``` against ```grade```, by course
-```{r,echo=FALSE,warning=FALSE}
+#### ```access.rate``` against ```grade```, by course
+```{r,echo=FALSE,warning=FALSE,cache=TRUE,fig.width=10}
 ggplot(aes(x = access.rate,y = grade,color=certified),
        data = filter(edxdata,explored == 1)) +
   geom_point(size=0.5) + xlim(0,1)+ facet_wrap(~abbrev_course_title)
@@ -471,29 +469,52 @@ The distribution of ```grade``` behaves differently from course to course. Two d
 # Final Plots and Summary
 
 ### Plot One
-```{r echo=FALSE, Plot_One}
-ggplot(aes(abbrev_course_title,fill = LoE_DI),data = filter(edxdata,((LoE_DI!="") & (!is.nan(LoE_DI))))) +
-  geom_histogram(position = "fill") + coord_flip()+facet_wrap(~certified)
+```{r echo=FALSE, plot_one,cache=TRUE}
+ggplot(aes(abbrev_course_title,fill = LoE_DI),
+       data = filter(edxdata,((LoE_DI!="") & (!is.nan(LoE_DI))))) +
+  geom_histogram(position = "fill") + 
+  coord_flip()+
+  facet_wrap(~certified)+
+  scale_fill_discrete(name="Level of education") + 
+  xlab("course title (abbreviated)") +
+  ylab("normalized population of registrants") +
+  ggtitle("Density plot of registrants' level of education by course and certification status")
+  
 ```
 
 ### Description One
 This figure is the density plot of education level (```LOE_DI```) of the registrants by each course, with and without certificates. *TRUE* are the registrants with certificates, whereas *FALSE* are the registrants without certificates. Data entries with ```LOE_DI==NA or ""``` are ignored. As shown in this figure, the registrants of each course are dominated by the participants who hold an advanced degree or less than Secondary degree. The population of users who hold a secondary or Bachelor's degree are small in every course. In addition, this plot shows that the composition of education levels does not vary a lot bewteen the population with and without certificates.
 
 ### Plot Two
-```{r,echo=FALSE,warning=FALSE}
-ggplot(aes(x=abbrev_course_title,y=nevents),data=filter(edxdata,certified==1))+geom_jitter(aes(color=short_title),alpha=0.2,na.rm=TRUE)+ylim(0,30000)+geom_boxplot()+coord_flip()
+```{r,echo = FALSE, plot_two, warning = FALSE,cache = TRUE}
+ggplot(aes(x = abbrev_course_title,y = nevents),
+       data = filter(edxdata,certified == 1)) +
+       geom_jitter(aes(color = short_title),alpha = 0.2,na.rm = TRUE) +
+       ylim(0,30000) +
+       geom_boxplot() +
+       coord_flip() +
+       xlab("course title (abbreviated)") +
+       ylab("nevents:number of interactions with the course (times)") +
+       theme(legend.position = "none") +
+      ggtitle("Boxplot and scatter plot of certified registrants by course")
 ```
 
 ### Description Two
 
-This figure shows a boxplot and a scatter plot of ```nevent``` of each certified participant versus each course. The upper, middle and lower hinges of the boxplot represent the 25th, 50th 75th quantiles of```nevents```,respectively. ```nevents``` records the number of interactions with the course and therefore can be an indication of the efforts required to pass a course. The boxplot helps comparing the median and spread of ```nevents``` between each course. For example, the median and variation of ```nevents``` of the course *CSH* is very small compared to other courses. On the other hand, the course *EM* has the highest median ```nevents``` value among courses, indicating this course needs more efforts to complete.
+This figure shows a box plot and a scatter plot of ```nevents``` of each certified participant versus each course. The upper, middle and lower hinges of the boxplot represent the 25th, 50th 75th quantiles of```nevents```,respectively. ```nevents``` records the number of interactions with the course and therefore can be an indication of the efforts required to pass a course. The boxplot helps comparing the median and spread of ```nevents``` between each course. For example, the median and variation of ```nevents``` of the course *CSH* is very small compared to other courses. On the other hand, the course *EM* has the highest median ```nevents``` value among courses, indicating this course needs more efforts to complete.
 
 
 ### Plot Three
-```{r,echo=FALSE,warning=FALSE, Plot_Three}
+```{r,echo=FALSE,warning=FALSE, plot_three, cache=TRUE}
 ggplot(aes(x = nevents/10000,y = grade,color=certified),
        data = filter(edxdata,explored == 1)) +
-  geom_point(size=0.5) + facet_wrap(~abbrev_course_title) +xlim(0,2)
+  geom_point(size=0.5) + 
+  facet_wrap(~abbrev_course_title) +
+  xlim(0,2) +
+  xlab("nevents:number of interactions with the course (10000 times)") +
+  ylab("grade (rescaled to 0~1)") +
+  ggtitle("Grade against nevent among the registrants who \"explored\" the course")
+
 ```
 
 ### Description Three
