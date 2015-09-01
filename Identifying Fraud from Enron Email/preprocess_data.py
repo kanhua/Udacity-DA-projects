@@ -3,8 +3,10 @@ __author__ = 'kanhua'
 
 import pickle
 import pandas as pd
-from sklearn.base import BaseEstimator, ClassifierMixin
+from sklearn.base import BaseEstimator, ClassifierMixin,TransformerMixin
 from sklearn.svm import LinearSVC
+from sklearn.feature_selection import SelectKBest
+from sklearn.decomposition import PCA
 import numpy as np
 from sklearn.preprocessing import scale
 
@@ -76,6 +78,34 @@ def linearsvc_outlier_rm(train_X,train_y,discard=0.1,take_abs=True):
     return n_train_X,n_train_y,dec_y
 
 
+class FeatureSel(BaseEstimator,TransformerMixin):
+    def __init__(self,k_best=5,pca_comp=8):
+        self.k_best=k_best
+        self.pca_comp=pca_comp
+        self.pca=PCA(n_components=self.pca_comp)
+        self.skb=SelectKBest(k=self.k_best)
+
+
+    def transform(self,X):
+        X1=self.pca.transform(X)
+        X2=self.skb.transform(X)
+
+        return np.hstack((X1,X2))
+
+
+    def fit_transform(self,X,y):
+        X1=self.pca.fit_transform(X,y)
+        X2=self.skb.fit_transform(X,y)
+
+        return np.hstack((X1,X2))
+
+    def fit(self,X,y):
+        self.pca.fit(X,y)
+        self.skb.fit(X,y)
+
+
+
+
 
 
 if __name__=="__main__":
@@ -92,12 +122,23 @@ if __name__=="__main__":
     X,y,y_dis=linearsvc_outlier_rm(X,y)
     print(y_dis)
     plt.hist(y_dis,100,hold=True)
-    plt.show()
+
 
     X,y,y_dis=linearsvc_outlier_rm(X,y)
     print(y_dis)
     plt.hist(y_dis,100)
-    plt.show()
+
+
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+    sd=StandardScaler()
+    fsl=FeatureSel()
+    ppl=Pipeline([("fsl",fsl),("sd",sd),("lvc",LinearSVC(C=0.0001,tol=0.0001))])
+
+    ppl.fit(X,y)
+
+    ppl.predict(X)
+
 
 
 
