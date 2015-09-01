@@ -108,8 +108,8 @@ pca.explained_variance_ratio_
 
 sort_idx=np.argsort(skb.scores_)[::-1]
 chosen_idx=sort_idx[0:15]
-nndfmtx=np.hstack((ndfmtx[:,chosen_idx],pca_train_X))
-#nndfmtx=pca_train_X
+#nndfmtx=np.hstack((ndfmtx[:,chosen_idx],pca_train_X))
+nndfmtx=pca_train_X
 #nndfmtx=ndfmtx[:,chosen_idx]
 ndf.columns[chosen_idx]
 
@@ -179,7 +179,7 @@ def try_lvc_clf(train_X,train_y,test_X,test_y):
 
 # In[294]:
 
-sss=StratifiedShuffleSplit(label,n_iter=10000,test_size=0.1)
+sss=StratifiedShuffleSplit(label,n_iter=1000,test_size=0.1)
 true_negatives = 0
 false_negatives = 0
 true_positives = 0
