@@ -36,7 +36,7 @@ def extract_df(df,exclude_features=["email_address","poi"]):
 
     return X,y
 
-def linearsvc_outlier_rm(train_X,train_y,discard=0.1,take_abs=True):
+def linearsvc_outlier_rm(train_X,train_y,discard=0.1,lvc_C=0.1,take_abs=True):
     """
     Remove the outliers in the data.
     It rescaled the data, use linear SVC to do the classification,
@@ -54,7 +54,7 @@ def linearsvc_outlier_rm(train_X,train_y,discard=0.1,take_abs=True):
     # Here we scaled the input data, but the output data are note rescaled
     scaled_train_X=scale(train_X)
 
-    lvc=LinearSVC(C=0.1)
+    lvc=LinearSVC(C=lvc_C)
     lvc.fit(scaled_train_X,train_y)
 
     dec_y=lvc.decision_function(scaled_train_X)
