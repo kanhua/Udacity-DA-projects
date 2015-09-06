@@ -1,0 +1,3 @@
+The main project ipython notebook file is [Test a perceptual phenomenon.ipynb](Test a perceptual phenomenon.ipynb).
+
+However, the ipython renderer of Github somehow has problems in showing colored text. The properly rendered html version can be access via [nbviewer](http://nbviewer.ipython.org/github/kanhua/Udacity-DA-projects/blob/master/Test%20a%20Perceptual%20Phenomenon/Test%20a%20perceptual%20phenomenon.ipynb).
