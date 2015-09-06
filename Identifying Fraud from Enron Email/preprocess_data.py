@@ -10,14 +10,15 @@ from sklearn.decomposition import PCA
 import numpy as np
 from sklearn.preprocessing import scale
 
-def pkl_to_df(pkl_file="./data/final_project_dataset.pkl"):
+def pkl_to_df(pkl_file="./data/final_project_dataset.pkl",remove_total=False):
 
     data_dict=pickle.load(open(pkl_file,"rb"),fix_imports=False,encoding="latin1")
 
     df=pd.DataFrame(data_dict)
     df=df.transpose()
 
-    df=df.drop("TOTAL",axis=0)
+    if remove_total==True:
+        df=df.drop("TOTAL",axis=0)
 
     return df
 
@@ -33,6 +34,8 @@ def extract_df(df,exclude_features=["email_address","poi"]):
     X=ndf.values
 
     y=df["poi"].values
+
+    print(ndf.columns)
 
     return X,y
 
@@ -109,7 +112,7 @@ class FeatureSel(BaseEstimator,TransformerMixin):
 
 
 if __name__=="__main__":
-    df=pkl_to_df()
+    df=pkl_to_df(remove_total=False)
     X,y=extract_df(df)
 
 
