@@ -229,7 +229,7 @@ H_0: \mu_D=0
 \begin{align}
 H_A: \mu_D \neq 0
 \end{align}</p>
-<h4 id="Statistical-test">Statistical test<a class="anchor-link" href="#Statistical-test">&#182;</a></h4><p>We assumed that the PDF of $\mathbf{X}_D$ is a normal distribution with unknown mean and variance. Also, the number of samples are relatively small (less than 30). Therefore, a <a href="https://en.wikipedia.org/w/index.php?title=Student%27s_t-test&oldid=675920924#Dependent_t-test_for_paired_samples">dependent t-test for paired samples</a> is suitable for this case.</p>
+<h4 id="Statistical-test">Statistical test<a class="anchor-link" href="#Statistical-test">&#182;</a></h4><p>We assumed that the PDF of $\mathbf{T}_D$ is a normal distribution with unknown mean and variance. Also, the number of samples are relatively small (less than 30). Therefore, a <a href="https://en.wikipedia.org/w/index.php?title=Student%27s_t-test&oldid=675920924#Dependent_t-test_for_paired_samples">dependent t-test for paired samples</a> is suitable for this case.</p>
 <h4 id="One-tailed-or-two-tailed-test">One-tailed or two-tailed test<a class="anchor-link" href="#One-tailed-or-two-tailed-test">&#182;</a></h4><p>Since our alternative hypothesis is $\mu_D \neq 0$, we will use a two-tailed test for this analysis. However, we may want to use one-tailed test if we are bearing the priori that <em>incongruent</em> condition may increase the response time to recognize the color. In this case, the alternative hypothesis is written as:
 \begin{align}
 H_A: \mu_D &gt; 0
@@ -238,10 +238,10 @@ As we mentioned before, in this experiment we are more interested in whether dif
 <h4 id="Further-remarks-on-using-dependent-t-test-for-paired-samples">Further remarks on using <em>dependent t-test for paired samples</em><a class="anchor-link" href="#Further-remarks-on-using-dependent-t-test-for-paired-samples">&#182;</a></h4><p>Another option for analyzing this experiment result is using an <a href="https://en.wikipedia.org/w/index.php?title=Student%27s_t-test&oldid=675920924#Independent_two-sample_t-test">independent two-sample t-test with equal or unequal variances</a>.
 This time we denote that $\mathbf{T}_C$ as the population of response time under the condition <em>congruent</em>, while $\mathbf{T}_I$ as the population of reponse time under the condition <em>incongruent</em>. More formal definitions of $\mathbf{T}_C$ and $\mathbf{T}_I$ can be defined as below:
 \begin{align}
-\mathbf{T}_C&amp;={Tc_i|i\in\mathbf{N}}
+\mathbf{T}_C={ Tc_i|i\in\mathbf{N}}
 \end{align}
 \begin{align}
-\mathbf{T}_I&amp;={Ti_i|i \in \mathbf{N} }
+\mathbf{T}_I={Ti_i|i \in \mathbf{N}}
 \end{align}
 We assume that the PDFs of $\mathbf{T}_C$ and $\mathbf{T}_I$ are normal distribution with their own population mean and variance:
 \begin{align}
