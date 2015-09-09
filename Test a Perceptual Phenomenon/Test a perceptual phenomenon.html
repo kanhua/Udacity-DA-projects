@@ -215,17 +215,49 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.-What-is-an-appropriate-set-of-hypotheses-for-this-task?-What-kind-of-statistical-test-do-you-expect-to-perform?-Justify-your-choices.">2. What is an appropriate set of hypotheses for this task? What kind of statistical test do you expect to perform? Justify your choices.<a class="anchor-link" href="#2.-What-is-an-appropriate-set-of-hypotheses-for-this-task?-What-kind-of-statistical-test-do-you-expect-to-perform?-Justify-your-choices.">&#182;</a></h3><p>In this dataset, each participant took tests under both <em>congruent</em> and <em>incongruent</em> conditions. As a result, we can use <a href="https://en.wikipedia.org/wiki/Paired_difference_test">paired difference test</a> to explore the relation between these two experiment conditions.</p>
-<p>Let us denote that $\mathbf{X}_D=\{Ti_i-Tc_i|i\in \mathbf{N}\}$ is the population of the time differences between <em>congruent</em> and <em>incongruent</em> test of the participants. $Ti_i$ and $Tc_i$ are the response time of incongruent test and congruent test of the i-th participant, respectively. We can assume that the probability density function (PDF) against $\mathbf{X}_D$ is a normal distribution, which can be written as $N(\mu_D,\sigma_D^2)$.</p>
-<p>The null hypothesis is that the mean value $\mu_D$ of $\mathbf{X}_D$ is zero, that is,
+<h3 id="2.-What-is-an-appropriate-set-of-hypotheses-for-this-task?-What-kind-of-statistical-test-do-you-expect-to-perform?-Justify-your-choices.">2. What is an appropriate set of hypotheses for this task? What kind of statistical test do you expect to perform? Justify your choices.<a class="anchor-link" href="#2.-What-is-an-appropriate-set-of-hypotheses-for-this-task?-What-kind-of-statistical-test-do-you-expect-to-perform?-Justify-your-choices.">&#182;</a></h3><h4 id="Hypotheses">Hypotheses<a class="anchor-link" href="#Hypotheses">&#182;</a></h4><p>In this dataset, each participant took tests under both <em>congruent</em> and <em>incongruent</em> conditions. As a result, we can use <a href="https://en.wikipedia.org/wiki/Paired_difference_test">paired difference test</a> to explore the relation between these two experiment conditions.</p>
+<p>Let us denote $\mathbf{T}_D=\{T_D=Ti_i-Tc_i|i\in \mathbf{N}\}$ as the population of the time differences between <em>congruent</em> and <em>incongruent</em> test of a person. $Ti_i$ and $Tc_i$ are the response time of incongruent test and congruent test of the i-th participant, respectively. $\mathbf{N}$ is the set of index of a sufficiently large group of people. $\mathbf{N}$ can thus be defined as:
+\begin{align}
+\mathbf{N}={1,2,3,4,...,N}
+\end{align}
+where $N$ is sufficiently large or infinite. In other words, $\mathbf{T}_D$ is the set of time differences measured from a sufficiently large group of people. We then assume that the probability density function (PDF) of $\mathbf{T}_D$ is a normal distribution, which is denoted as $N(\mu_D,\sigma_D^2)$, where $\mu_D$ is the population mean and $\sigma_D^2$ is the population variance.</p>
+<p>The null hypothesis is that $\mu_D$ equals to zero, that is,
 \begin{align}
 H_0: \mu_D=0
 \end{align}</p>
-<p>From this experiment, we are interested in whether the experiment conditions can change the reponse time of the participants. Therefore, the condition for rejecting the null hypothesis, or <em>alternative hypothesis</em>, is:
+<p>In this experiment, we are interested in whether the experiment conditions can change the reponse time of the participants. Therefore, the condition for rejecting the null hypothesis, or <em>alternative hypothesis</em>, is:
 \begin{align}
 H_A: \mu_D \neq 0
 \end{align}</p>
-<p>We assumed that the PDF of $\mathbf{X}_D$ is a normal distribution with unknown variance. Also, the number of samples are relatively small (less than 30). Therefore, a <a href="https://en.wikipedia.org/w/index.php?title=Student%27s_t-test&oldid=675920924#Dependent_t-test_for_paired_samples">dependent t-test for paired samples</a> is suitable for this case. Moreover, because our alternative hypothesis is $\mu_D \neq 0$, we will use a two-tailed test for this analysis.</p>
+<h4 id="Statistical-test">Statistical test<a class="anchor-link" href="#Statistical-test">&#182;</a></h4><p>We assumed that the PDF of $\mathbf{X}_D$ is a normal distribution with unknown mean and variance. Also, the number of samples are relatively small (less than 30). Therefore, a <a href="https://en.wikipedia.org/w/index.php?title=Student%27s_t-test&oldid=675920924#Dependent_t-test_for_paired_samples">dependent t-test for paired samples</a> is suitable for this case.</p>
+<h4 id="One-tailed-or-two-tailed-test">One-tailed or two-tailed test<a class="anchor-link" href="#One-tailed-or-two-tailed-test">&#182;</a></h4><p>Since our alternative hypothesis is $\mu_D \neq 0$, we will use a two-tailed test for this analysis. However, we may want to use one-tailed test if we are bearing the priori that <em>incongruent</em> condition may increase the response time to recognize the color. In this case, the alternative hypothesis is written as:
+\begin{align}
+H_A: \mu_D &gt; 0
+\end{align}
+As we mentioned before, in this experiment we are more interested in whether different experiment conditions cause any differences in the response time. Therefore, we will adopt two-tailed test in the following statistical analysis.</p>
+<h4 id="Further-remarks-on-using-dependent-t-test-for-paired-samples">Further remarks on using <em>dependent t-test for paired samples</em><a class="anchor-link" href="#Further-remarks-on-using-dependent-t-test-for-paired-samples">&#182;</a></h4><p>Another option for analyzing this experiment result is using an <a href="https://en.wikipedia.org/w/index.php?title=Student%27s_t-test&oldid=675920924#Independent_two-sample_t-test">independent two-sample t-test with equal or unequal variances</a>.
+This time we denote that $\mathbf{T}_C$ as the population of response time under the condition <em>congruent</em>, while $\mathbf{T}_I$ as the population of reponse time under the condition <em>incongruent</em>. More formal definitions of $\mathbf{T}_C$ and $\mathbf{T}_I$ can be defined as below:
+\begin{align}
+\mathbf{T}_C&amp;={Tc_i|i\in\mathbf{N}} \
+\mathbf{T}_I&amp;={Ti_i|i \in \mathbf{N} }
+\end{align}
+We assume that the PDFs of $\mathbf{T}_C$ and $\mathbf{T}_I$ are normal distribution with their own population mean and variance:
+\begin{align}
+\mathbf{T}_C&amp;\sim \mathcal{N}(\mu_C,\sigma_C^2)\
+\mathbf{T}_I&amp;\sim \mathcal{N}(\mu_I,\sigma_I^2)
+\end{align}</p>
+<p>Since we are interested in whether these two conditions cause any differences in response time of the participants,
+the null hypothesis $H'0$ is that the population means of the two test groups are equal:
+\begin{align}
+H'_0: \mu_C=\mu_I
+\end{align}
+while the alternative hypothesis is 
+\begin{align}
+H'_A: \mu_C \neq \mu_I
+\end{align}</p>
+<p>This null hypothesis can be tested by using a two-sample t-test, since the population means $\mu_C$ and $\mu_I$ are unknown. In addition, we can choose whether we would like to assume the variances $\sigma_C^2$ or $\sigma_I^2$ or not.</p>
+<p>The null hypotheses of $H_0$ and $H'_0$ may look similar, but they do have some subtle differences. The null hypothesis $H_0$ only involves single population $\mathbf{T}_D$. However, for testing the null hypothesis $H'_0$ we have two different population $\mathbf{T}_C$ and $\mathbf{T}_I$ to compare, which introduces additional uncertainties and reduces the statistical strength.</p>
+<p>Moreover, the conclusions yielded by rejecting $H_0$ and $H'_0$ are slightly different. Rejecting $H_0$ or accepting $H_A$ means that, in average, a person's response time difference caused by the experiment conditions is not zero. On the other hand, rejecting $H'_0$ or accepting $H'_A$ means that the averaged response time between the two test groups is different. In the former case, the focus is whether the response time remains the same of an individual, while in the latter case, we can only compare the mean response time of two groups with different experiment conditions.</p>
 
 </div>
 </div>
@@ -378,7 +410,7 @@ H_A: \mu_D \neq 0
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.legend.Legend at 0x10646d2e8&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x10ec51c18&gt;</pre>
 </div>
 
 </div>
@@ -590,7 +622,7 @@ mSXhgW1mloQHtplZEh7YZmZJeGCbmSXx/wFr++eLpei83wAAAABJRU5ErkJggg==
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x1065ad9e8&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x10ed1d9b0&gt;</pre>
 </div>
 
 </div>
@@ -906,7 +938,7 @@ p-value(one-tailed):2.05150029286e-08
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="6.-Optional:-What-do-you-think-is-responsible-for-the-effects-observed?-Can-you-think-of-an-alternative-or-similar-task-that-would-result-in-a-similar-effect?-Some-research-about-the-problem-will-be-helpful-for-thinking-about-these-two-questions!">6. Optional: What do you think is responsible for the effects observed? Can you think of an alternative or similar task that would result in a similar effect? Some research about the problem will be helpful for thinking about these two questions!<a class="anchor-link" href="#6.-Optional:-What-do-you-think-is-responsible-for-the-effects-observed?-Can-you-think-of-an-alternative-or-similar-task-that-would-result-in-a-similar-effect?-Some-research-about-the-problem-will-be-helpful-for-thinking-about-these-two-questions!">&#182;</a></h3><p>This result may be due to that the processing of text and color are somehow coupled in our brain, thus it causes some delay in separating the information given by the text and color. An alternative test is letting the participants take the the following two test:</p>
+<h3 id="6.-Optional:-What-do-you-think-is-responsible-for-the-effects-observed?-Can-you-think-of-an-alternative-or-similar-task-that-would-result-in-a-similar-effect?-Some-research-about-the-problem-will-be-helpful-for-thinking-about-these-two-questions!">6. Optional: What do you think is responsible for the effects observed? Can you think of an alternative or similar task that would result in a similar effect? Some research about the problem will be helpful for thinking about these two questions!<a class="anchor-link" href="#6.-Optional:-What-do-you-think-is-responsible-for-the-effects-observed?-Can-you-think-of-an-alternative-or-similar-task-that-would-result-in-a-similar-effect?-Some-research-about-the-problem-will-be-helpful-for-thinking-about-these-two-questions!">&#182;</a></h3><p>This result may be due to that the processing of text and color are somehow coupled in our brain, thus it causes some delay in separating the information given by the text and color. An alternative test is letting the participants take the the following two tests:</p>
 <ol>
 <li>Give the participants a series of colored words that are irrelavant to colors, such as <font color="red">SPOON</font>, <font color="blue">TABLE</font>, <font color="orange">DESK</font> or <font color="purple">CHAIR</font></li>
 <li>Give the participants a series of colored words that are the congruent or incongurent to the colors, such as <font color="red">RED</font>, <font color="blue">BLUE</font>, <font color="orange">PURPLE</font> or <font color="purple">ORANGE</font>. Again, we can measure the time required for the participants to name the color. In this way, we may be able to obtain similar effects as we discovered in the original test.</li>
