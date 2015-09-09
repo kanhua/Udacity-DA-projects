@@ -225,7 +225,7 @@ where $N$ is sufficiently large or infinite. In other words, $\mathbf{T}_D$ is t
 \begin{align}
 H_0: \mu_D=0
 \end{align}</p>
-<p>In this experiment, we are interested in whether the experiment conditions can change the reponse time of the participants. Therefore, the condition for rejecting the null hypothesis, or <em>alternative hypothesis</em>, is:
+<p>In this experiment, we are interested in whether the experiment conditions can change the response time of the participants. Therefore, the condition for rejecting the null hypothesis, or <em>alternative hypothesis</em>, is:
 \begin{align}
 H_A: \mu_D \neq 0
 \end{align}</p>
@@ -238,16 +238,20 @@ As we mentioned before, in this experiment we are more interested in whether dif
 <h4 id="Further-remarks-on-using-dependent-t-test-for-paired-samples">Further remarks on using <em>dependent t-test for paired samples</em><a class="anchor-link" href="#Further-remarks-on-using-dependent-t-test-for-paired-samples">&#182;</a></h4><p>Another option for analyzing this experiment result is using an <a href="https://en.wikipedia.org/w/index.php?title=Student%27s_t-test&oldid=675920924#Independent_two-sample_t-test">independent two-sample t-test with equal or unequal variances</a>.
 This time we denote that $\mathbf{T}_C$ as the population of response time under the condition <em>congruent</em>, while $\mathbf{T}_I$ as the population of reponse time under the condition <em>incongruent</em>. More formal definitions of $\mathbf{T}_C$ and $\mathbf{T}_I$ can be defined as below:
 \begin{align}
-\mathbf{T}_C&amp;={Tc_i|i\in\mathbf{N}} \
+\mathbf{T}_C&amp;={Tc_i|i\in\mathbf{N}}
+\end{align}
+\begin{align}
 \mathbf{T}_I&amp;={Ti_i|i \in \mathbf{N} }
 \end{align}
 We assume that the PDFs of $\mathbf{T}_C$ and $\mathbf{T}_I$ are normal distribution with their own population mean and variance:
 \begin{align}
-\mathbf{T}_C&amp;\sim \mathcal{N}(\mu_C,\sigma_C^2)\
+\mathbf{T}_C&amp;\sim \mathcal{N}(\mu_C,\sigma_C^2)
+\end{align}
+\begin{align}
 \mathbf{T}_I&amp;\sim \mathcal{N}(\mu_I,\sigma_I^2)
 \end{align}</p>
 <p>Since we are interested in whether these two conditions cause any differences in response time of the participants,
-the null hypothesis $H'0$ is that the population means of the two test groups are equal:
+the null hypothesis $H'_0$ is that the population means of the two test groups are equal:
 \begin{align}
 H'_0: \mu_C=\mu_I
 \end{align}
@@ -255,7 +259,7 @@ while the alternative hypothesis is
 \begin{align}
 H'_A: \mu_C \neq \mu_I
 \end{align}</p>
-<p>This null hypothesis can be tested by using a two-sample t-test, since the population means $\mu_C$ and $\mu_I$ are unknown. In addition, we can choose whether we would like to assume the variances $\sigma_C^2$ or $\sigma_I^2$ or not.</p>
+<p>This null hypothesis can be tested by using a two-sample t-test, since the population means $\mu_C$ and $\mu_I$ are unknown. In addition, we can choose whether the variances $\sigma_C^2$ and $\sigma_I^2$ are equal or not.</p>
 <p>The null hypotheses of $H_0$ and $H'_0$ may look similar, but they do have some subtle differences. The null hypothesis $H_0$ only involves single population $\mathbf{T}_D$. However, for testing the null hypothesis $H'_0$ we have two different population $\mathbf{T}_C$ and $\mathbf{T}_I$ to compare, which introduces additional uncertainties and reduces the statistical strength.</p>
 <p>Moreover, the conclusions yielded by rejecting $H_0$ and $H'_0$ are slightly different. Rejecting $H_0$ or accepting $H_A$ means that, in average, a person's response time difference caused by the experiment conditions is not zero. On the other hand, rejecting $H'_0$ or accepting $H'_A$ means that the averaged response time between the two test groups is different. In the former case, the focus is whether the response time remains the same of an individual, while in the latter case, we can only compare the mean response time of two groups with different experiment conditions.</p>
 
