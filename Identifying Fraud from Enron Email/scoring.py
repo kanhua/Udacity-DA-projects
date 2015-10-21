@@ -4,7 +4,7 @@ __author__ = 'kanhua'
 from sklearn.cross_validation import StratifiedShuffleSplit
 
 
-def calc_score(X,y,clf):
+def calc_score(X,y,clf,n_iter=1000):
 
     sss=StratifiedShuffleSplit(y,n_iter=1000)
     true_negatives = 0
@@ -45,3 +45,14 @@ def calc_score(X,y,clf):
     print("precision: %s"%precision)
     print("recall: %s"%recall)
     print("f1: %s"%f1)
+
+
+def test_feature_selection(test_df):
+    fill_test_df=test_df.fillna(0)
+    X,y,cols=extract_df(fill_test_df)
+    skb=SelectKBest()
+    nX=skb.fit_transform(X,y)
+    skb.scores_
+    sorted_idx=np.argsort(skb.scores_)[::-1]
+    cols[sorted_idx]
+    calc_score(nX,y,quickclf)

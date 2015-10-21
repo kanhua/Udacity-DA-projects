@@ -22,7 +22,7 @@ def pkl_to_df(pkl_file="./data/final_project_dataset.pkl",remove_total=False):
 
     return df
 
-def extract_df(df,exclude_features=["email_address","poi"]):
+def extract_df(df,exclude_features=["email_address","poi"],verbose=False):
     """
     :param df: input dataframe
     :param exclude_features: list of feature names to be removed
@@ -35,9 +35,10 @@ def extract_df(df,exclude_features=["email_address","poi"]):
 
     y=df["poi"].values
 
-    print(ndf.columns)
+    if verbose==True:
+        print(ndf.columns)
 
-    return X,y
+    return X,y,ndf.columns
 
 def linearsvc_outlier_rm(train_X,train_y,discard=0.1,lvc_C=0.1,take_abs=True):
     """
@@ -85,8 +86,21 @@ class FeatureSel(BaseEstimator,TransformerMixin):
     def __init__(self,k_best=5,pca_comp=8):
         self.k_best=k_best
         self.pca_comp=pca_comp
-        self.pca=PCA(n_components=self.pca_comp)
-        self.skb=SelectKBest(k=self.k_best)
+        if pca_comp>0:
+            self.pca=PCA(n_components=self.pca_comp)
+        if k_best>0:
+            self.skb=SelectKBest(k=self.k_best)
+
+
+    def set_params(self, **parameters):
+
+        super().set_params(**parameters)
+
+        self.pca.set_params(n_components=self.pca_comp)
+
+        self.skb.set_params(k=self.k_best)
+
+        return self
 
 
     def transform(self,X):
@@ -97,14 +111,18 @@ class FeatureSel(BaseEstimator,TransformerMixin):
 
 
     def fit_transform(self,X,y):
+
+
         X1=self.pca.fit_transform(X,y)
         X2=self.skb.fit_transform(X,y)
 
         return np.hstack((X1,X2))
 
     def fit(self,X,y):
-        self.pca.fit(X,y)
-        self.skb.fit(X,y)
+        if self.pca_comp>0:
+            self.pca.fit(X,y)
+        if self.k_best>0:
+            self.skb.fit(X,y)
 
 
 
@@ -113,7 +131,8 @@ class FeatureSel(BaseEstimator,TransformerMixin):
 
 if __name__=="__main__":
     df=pkl_to_df(remove_total=False)
-    X,y=extract_df(df)
+    X,y,_=extract_df(df)
+
 
 
     from sklearn.preprocessing import Imputer
@@ -136,6 +155,7 @@ if __name__=="__main__":
     from sklearn.preprocessing import StandardScaler
     sd=StandardScaler()
     fsl=FeatureSel()
+    fsl.set_params(k_best=1)
     ppl=Pipeline([("fsl",fsl),("sd",sd),("lvc",LinearSVC(C=0.0001,tol=0.0001))])
 
     ppl.fit(X,y)
