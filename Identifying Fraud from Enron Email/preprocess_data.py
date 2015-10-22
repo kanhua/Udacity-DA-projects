@@ -125,6 +125,43 @@ class FeatureSel(BaseEstimator,TransformerMixin):
             self.skb.fit(X,y)
 
 
+def add_features(data_dict, financial_features="none"):
+    '''
+    This function takes separate positive and negative values of financial features,
+    and then it takes logarithm of the values of each feature.
+    :param financial_features: will be set to default value if it is "none"
+    :param data_dict: the data dictionary
+    :return: data dictionary with new features, names of new features, names of financial features
+    '''
+
+    if financial_features=="none":
+        financial_features = ['bonus', 'deferral_payments', 'deferred_income', 'director_fees',
+                              'exercised_stock_options', 'expenses',
+                              'long_term_incentive', 'other', 'restricted_stock',
+                              'restricted_stock_deferred', 'salary',
+                              'total_payments', 'total_stock_value']
+
+    new_data_dict = copy.copy(data_dict)
+
+    for name in new_data_dict.keys():
+        for f in financial_features:
+            if new_data_dict[name][f] == "NaN":
+                new_data_dict[name]["p_" + f] = 0
+                new_data_dict[name]["n_" + f] = 0
+            elif new_data_dict[name][f] >= 0:
+                new_data_dict[name]["p_" + f] = np.log10(new_data_dict[name][f])
+                new_data_dict[name]["n_" + f] = 0
+            elif new_data_dict[name][f] < 0:
+                new_data_dict[name]["n_" + f] = np.log10(-new_data_dict[name][f])
+                new_data_dict[name]["p_" + f] = 0
+
+    new_feature = []
+
+    for f in financial_features:
+        new_feature.append("n_" + f)
+        new_feature.append("p_" + f)
+
+    return new_data_dict, new_feature, financial_features
 
 
 
