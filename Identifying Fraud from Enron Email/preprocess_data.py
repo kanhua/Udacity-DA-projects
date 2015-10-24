@@ -9,36 +9,39 @@ from sklearn.feature_selection import SelectKBest
 from sklearn.decomposition import PCA
 import numpy as np
 from sklearn.preprocessing import scale
+import copy
 
-def pkl_to_df(pkl_file="./data/final_project_dataset.pkl",remove_total=False):
+def pkl_to_df(pkl_file="./data/final_project_dataset.pkl", rows_to_remove=["TOTAL"], cols_to_remove=["email_address"]):
 
     data_dict=pickle.load(open(pkl_file,"rb"),fix_imports=False,encoding="latin1")
 
     df=pd.DataFrame(data_dict)
     df=df.transpose()
 
-    if remove_total==True:
-        df=df.drop("TOTAL",axis=0)
+    df=df.drop(rows_to_remove,axis=0)
+    df=df.drop(cols_to_remove,axis=1)
 
     return df
 
-def extract_df(df,exclude_features=["email_address","poi"],verbose=False):
+def extract_df(df,exclude_features=["poi"],verbose=False):
     """
     :param df: input dataframe
     :param exclude_features: list of feature names to be removed
     :return: a tuple of X,y
     """
 
-
-    ndf=df.drop(exclude_features,axis=1)
-    X=ndf.values
-
     y=df["poi"].values
 
-    if verbose==True:
-        print(ndf.columns)
+    df=df.drop(["poi"],axis=1)
 
-    return X,y,ndf.columns
+    X=df.values
+
+
+
+    if verbose==True:
+        print(df.columns)
+
+    return X,y,df.columns
 
 def linearsvc_outlier_rm(train_X,train_y,discard=0.1,lvc_C=0.1,take_abs=True):
     """
@@ -167,7 +170,7 @@ def add_features(data_dict, financial_features="none"):
 
 
 if __name__=="__main__":
-    df=pkl_to_df(remove_total=False)
+    df= pkl_to_df()
     X,y,_=extract_df(df)
 
 
