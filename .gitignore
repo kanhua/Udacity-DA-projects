@@ -10,5 +10,6 @@ Reviews/
 HMXPC13_DI_v2_5-14-14.csv
 .Rproj.user
 *.Rproj
+*.pyc
 explore_edX_data_cache/
 explore_edX_data_files/
