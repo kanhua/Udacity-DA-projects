@@ -97,7 +97,9 @@ class FeatureSel(BaseEstimator,TransformerMixin):
 
     def set_params(self, **parameters):
 
-        super().set_params(**parameters)
+        for parameter, value in parameters.items():
+            setattr(self,parameter, value)
+        return self
 
         self.pca.set_params(n_components=self.pca_comp)
 

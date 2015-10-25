@@ -46,6 +46,8 @@ def calc_score(X,y,clf,n_iter=1000):
     print("recall: %s"%recall)
     print("f1: %s"%f1)
 
+    return {"precision":precision,"recall":recall,"f1":f1}
+
 
 def test_feature_selection(test_df):
     fill_test_df=test_df.fillna(0)

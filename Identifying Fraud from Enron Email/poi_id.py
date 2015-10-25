@@ -10,6 +10,8 @@ import numpy as np
 import copy
 from preprocess_data import FeatureSel,add_features
 from sklearn.svm import LinearSVC
+from sklearn.grid_search import GridSearchCV
+from sklearn.pipeline import Pipeline
 
 from sklearn.preprocessing import StandardScaler
 from feature_format import featureFormat, targetFeatureSplit
@@ -68,23 +70,21 @@ from preprocess_data import linearsvc_outlier_rm
 ### you'll need to use Pipelines. For more info:
 ### http://scikit-learn.org/stable/modules/pipeline.html
 
-from sklearn.naive_bayes import GaussianNB
-
-clf = GaussianNB()  # Provided to give you a starting point. Try a varity of classifiers.
 
 sd = StandardScaler()
-from sklearn.pipeline import Pipeline
-
 fsl = FeatureSel(k_best=5, pca_comp=5)
 # clf=Pipeline([("fsl",fsl),("sd",sd),("lvc",LinearSVC(C=0.000001))])
 
-clf1 = Pipeline([("sd", sd), ("lvc", LinearSVC(C=0.000001, tol=0.0000001))])
-
-from sklearn.grid_search import GridSearchCV
 
 clf = Pipeline([("fsl", fsl), ("sd", sd), ("lvc", LinearSVC())])
-gscv = GridSearchCV(clf, {"lvc__C": np.logspace(-6, -1, 10)}, scoring="recall", verbose=0)
 
+gscv=GridSearchCV(clf,{"lvc__C":np.logspace(-6,-1,5),
+                       "fsl__k_best":[1,5,10],
+                       "fsl__pca_comp":[0,5,10]},
+                  scoring="recall",verbose=0)
+
+
+gscv.fit(np.array(features),np.array(labels))
 
 ### Task 5: Tune your classifier to achieve better than .3 precision and recall 
 ### using our testing script.
@@ -93,7 +93,7 @@ gscv = GridSearchCV(clf, {"lvc__C": np.logspace(-6, -1, 10)}, scoring="recall", 
 ### http://scikit-learn.org/stable/modules/generated/sklearn.cross_validation.StratifiedShuffleSplit.html
 
 
-test_classifier(gscv, my_dataset, features_list)
+test_classifier(gscv.best_estimator_, my_dataset, features_list)
 
 ### Dump your classifier, dataset, and features_list so 
 ### anyone can run/check your results.
