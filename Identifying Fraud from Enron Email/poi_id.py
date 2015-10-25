@@ -30,8 +30,6 @@ features_list = ['poi', 'bonus', 'deferral_payments', 'deferred_income', 'direct
                  'restricted_stock_deferred', 'salary', 'shared_receipt_with_poi',
                  'to_messages', 'total_payments', 'total_stock_value']
 
-print(len(features_list))
-
 ### Load the dictionary containing the dataset
 data_dict = pickle.load(open("./data/final_project_dataset.pkl", "r"))
 
@@ -98,4 +96,4 @@ test_classifier(gscv.best_estimator_, my_dataset, features_list)
 ### Dump your classifier, dataset, and features_list so 
 ### anyone can run/check your results.
 
-dump_classifier_and_data(clf, my_dataset, features_list)
+dump_classifier_and_data(gscv.best_estimator_, my_dataset, features_list)
