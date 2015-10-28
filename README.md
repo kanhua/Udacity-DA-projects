@@ -13,10 +13,11 @@ This is my project submissions for [Udacity Data Analyst Nanodegree](https://www
 - Issues of multicollinearity were also investigated and analyzed.
 
 
-## Project 3: [Wrangle OpenStreetMaps Data](./OpenStreetMap/Data Wrangle OpenStreetMaps Data.ipynb)
+## Project 3: [Wrangle OpenStreetMaps Data](./OpenStreetMap/Readme.md)
 
-- Wrangled and analyzed OpenStreetMaps data in Greater London area with MongoDB.
-- Validated the postcodes in this dataset and analysed a few features in this dataset, including user contributions, amenities and transportation network.
+- Wrangled and OpenStreetMaps data in Greater London area with MongoDB.
+- Validated the postcodes in this dataset.
+- Analysed a few features in this dataset, including user contributions, amenities and transportation network.
 
 
 ## Project 4: [Explore and Summarize Data](./Explore and Summarize Data/README.md)
