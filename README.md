@@ -26,7 +26,7 @@ This is my project submissions for [Udacity Data Analyst Nanodegree](https://www
 - Investigated the correlations between the registrants' information and their performances in the courses.
 - More than 20 figures was included in the project file to visulize those features in the dataset.
 
-## Project 5: [Identifying Fraud from Enron Email](./Identifying Fraud from Enron Email/)
+## Project 5: [Identifying Fraud from Enron Email](https://github.com/kanhua/Enron-Email-Fraud)
 
 - Identify person of interest (poi) in Enron scandal from a given dataset with a number of machine learning algorithms and data preprocessing methods.
 - Both recall and precision of the presented model can achieve more than 0.3.
