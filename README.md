@@ -1,6 +1,6 @@
 # Udacity Data Analyst Nanodegree Projects
 
-This is my project submissions for [Udacity Data Analyst Nanodegree](https://www.udacity.com/course/data-analyst-nanodegree--nd002) program started in May 2015.
+This is my project submissions for [Udacity Data Analyst Nanodegree](https://www.udacity.com/course/data-analyst-nanodegree--nd002) program completed in January 2016.
 
 ## Project 1: [Test a Perceptual Phenomenon](./Test a Perceptual Phenomenon/)
 
@@ -13,14 +13,14 @@ This is my project submissions for [Udacity Data Analyst Nanodegree](https://www
 - Issues of multicollinearity were also investigated and analyzed.
 
 
-## Project 3: [Wrangle OpenStreetMaps Data](./OpenStreetMap/Readme.md)
+## Project 3: [Wrangle OpenStreetMaps Data](https://github.com/kanhua/Wrangling-OSM-data)
 
 - Wrangled and OpenStreetMaps data in Greater London area with MongoDB.
 - Validated the postcodes in this dataset.
 - Analysed a few features in this dataset, including user contributions, amenities and transportation network.
 
 
-## Project 4: [Explore and Summarize Data](./Explore and Summarize Data/README.md)
+## Project 4: [Explore and Summarize Data](https://github.com/kanhua/explore-edx-data)
 
 - Explored a courses statistics dataset released by edX, one of the biggest MOOC platform.
 - Investigated the correlations between the registrants' information and their performances in the courses.
@@ -31,3 +31,6 @@ This is my project submissions for [Udacity Data Analyst Nanodegree](https://www
 - Identify person of interest (poi) in Enron scandal from a given dataset with a number of machine learning algorithms and data preprocessing methods.
 - Both recall and precision of the presented model can achieve more than 0.3.
 
+## Project 6: [Make Effective Data Visualization](https://github.com/kanhua/udacity-dand-data-vis)
+
+The project visualizes the evolution of three-pointers in the NBA. This visualization allows readers to explore and compare several three-pointer statistics of each NBA team since 1990.
